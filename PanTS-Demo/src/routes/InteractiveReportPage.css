@@ -1,0 +1,623 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   InteractiveReportPage.css
+   Clinical radiology report — dark, high-contrast, medical-grade UI
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600&display=swap");
+
+/* ── Tokens ───────────────────────────────────────────────────────────────── */
+:root {
+  --ir-bg: #0c0e13;
+  --ir-surface: #14171e;
+  --ir-surface-raised: #1a1e28;
+  --ir-border: #262b38;
+  --ir-border-active: #3a4258;
+  --ir-text: #d4d8e4;
+  --ir-text-dim: #7c8298;
+  --ir-text-bright: #edf0f7;
+  --ir-accent: #e85d75;
+  --ir-accent-soft: rgba(232, 93, 117, 0.12);
+  --ir-liver: #c06040;
+  --ir-pancreas: #e85d75;
+  --ir-kidney: #4a8fe7;
+  --ir-radius: 6px;
+  --ir-radius-lg: 10px;
+  --ir-font-body: "DM Sans", sans-serif;
+  --ir-font-display: "Source Serif 4", Georgia, serif;
+  --ir-font-mono: "IBM Plex Mono", monospace;
+}
+
+/* ── Reset inside page ────────────────────────────────────────────────────── */
+.ir-page *,
+.ir-page *::before,
+.ir-page *::after {
+  box-sizing: border-box;
+}
+
+/* ── Page ─────────────────────────────────────────────────────────────────── */
+.ir-page {
+  min-height: 100vh;
+  background: var(--ir-bg);
+  color: var(--ir-text);
+  font-family: var(--ir-font-body);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── Loading / Error ──────────────────────────────────────────────────────── */
+.ir-loading,
+.ir-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 16px;
+  color: var(--ir-text-dim);
+}
+
+.ir-loading__spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--ir-border);
+  border-top-color: var(--ir-accent);
+  border-radius: 50%;
+  animation: ir-spin 0.8s linear infinite;
+}
+
+@keyframes ir-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ir-error h2 {
+  color: var(--ir-accent);
+  font-family: var(--ir-font-display);
+}
+
+.ir-error a {
+  color: var(--ir-accent);
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+.ir-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 32px;
+  background: var(--ir-surface);
+  border-bottom: 1px solid var(--ir-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.ir-header__back {
+  color: var(--ir-text-dim);
+  text-decoration: none;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.ir-header__back:hover {
+  color: var(--ir-text-bright);
+}
+
+.ir-header__title-group {
+  flex: 1;
+}
+
+.ir-header__title {
+  font-family: var(--ir-font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ir-text-bright);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.ir-header__case-id {
+  font-family: var(--ir-font-mono);
+  font-size: 12px;
+  color: var(--ir-text-dim);
+}
+
+.ir-header__patient {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--ir-text-dim);
+}
+
+.ir-header__patient span {
+  background: var(--ir-surface-raised);
+  padding: 4px 10px;
+  border-radius: var(--ir-radius);
+  border: 1px solid var(--ir-border);
+}
+
+/* ── Body: two-column ─────────────────────────────────────────────────────── */
+.ir-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-width: 1600px;
+  margin: 0 auto;
+  min-height: calc(100vh - 60px);
+}
+
+.ir-col {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.ir-col--report {
+  border-right: 1px solid var(--ir-border);
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+}
+
+.ir-col--images {
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+}
+
+.ir-col__sticky {
+  position: sticky;
+  top: 0;
+}
+
+/* ── Section ──────────────────────────────────────────────────────────────── */
+.ir-section {
+  margin-bottom: 32px;
+}
+
+.ir-section__title {
+  font-family: var(--ir-font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ir-text-bright);
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.ir-section__count {
+  font-family: var(--ir-font-mono);
+  font-size: 11px;
+  background: var(--ir-accent-soft);
+  color: var(--ir-accent);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.ir-section__hint {
+  font-size: 12px;
+  color: var(--ir-text-dim);
+  margin: 0 0 12px 0;
+}
+
+/* ── Findings List ────────────────────────────────────────────────────────── */
+.ir-findings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ir-finding {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  border-left: 3px solid transparent;
+  border-radius: var(--ir-radius);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.ir-finding:hover {
+  background: var(--ir-surface-raised);
+}
+
+.ir-finding--active {
+  border-left-width: 3px;
+  box-shadow: inset 0 0 0 1px var(--ir-border-active);
+}
+
+.ir-finding--linked {
+  cursor: pointer;
+}
+
+.ir-finding__icon {
+  flex-shrink: 0;
+  width: 18px;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 2px;
+  color: var(--ir-text-dim);
+}
+
+.ir-finding__text {
+  flex: 1;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.ir-finding__img-badge {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--ir-text-dim);
+  background: var(--ir-surface);
+  padding: 2px 6px;
+  border-radius: 8px;
+  margin-top: 2px;
+}
+
+/* ── Clickable medical term ───────────────────────────────────────────────── */
+.ir-term-link {
+  border-bottom: 1.5px dashed;
+  cursor: pointer;
+  font-weight: 500;
+  transition: opacity 0.15s;
+}
+.ir-term-link:hover {
+  opacity: 0.75;
+}
+
+/* ── Term Tooltip ─────────────────────────────────────────────────────────── */
+.ir-term-tooltip {
+  position: absolute;
+  left: 30px;
+  top: 100%;
+  z-index: 50;
+  width: 340px;
+  background: var(--ir-surface-raised);
+  border: 1px solid var(--ir-border-active);
+  border-radius: var(--ir-radius-lg);
+  padding: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  animation: ir-fade-in 0.15s ease;
+}
+
+@keyframes ir-fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ir-term-tooltip__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ir-term-tooltip__title {
+  font-family: var(--ir-font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ir-text-bright);
+  text-transform: capitalize;
+}
+
+.ir-term-tooltip__close {
+  background: none;
+  border: none;
+  color: var(--ir-text-dim);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.ir-term-tooltip__def {
+  font-size: 13px;
+  color: var(--ir-text);
+  margin: 0 0 8px 0;
+}
+
+.ir-term-tooltip__example {
+  font-size: 12px;
+  color: var(--ir-text-dim);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 8px 10px;
+  border-radius: var(--ir-radius);
+  margin: 0;
+  border-left: 2px solid var(--ir-accent);
+}
+
+/* ── Measurements Table ───────────────────────────────────────────────────── */
+.ir-measurements {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ir-measurements th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ir-text-dim);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--ir-border);
+  font-weight: 500;
+}
+
+.ir-measurements td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--ir-border);
+  font-family: var(--ir-font-mono);
+  font-size: 13px;
+}
+
+.ir-measurements__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.ir-measurements--alert {
+  color: var(--ir-accent);
+  font-weight: 600;
+}
+
+/* ── View Toggle ──────────────────────────────────────────────────────────── */
+.ir-view-toggle {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  background: var(--ir-surface);
+  border-radius: var(--ir-radius);
+  padding: 3px;
+  border: 1px solid var(--ir-border);
+}
+
+.ir-view-toggle__btn {
+  flex: 1;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-family: var(--ir-font-body);
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--ir-text-dim);
+  transition: all 0.15s;
+}
+
+.ir-view-toggle__btn--active {
+  background: var(--ir-surface-raised);
+  color: var(--ir-text-bright);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Image Cards ──────────────────────────────────────────────────────────── */
+.ir-images-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.ir-image-card {
+  background: var(--ir-surface);
+  border: 2px solid var(--ir-border);
+  border-radius: var(--ir-radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ir-image-card:hover {
+  border-color: var(--ir-border-active);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.ir-image-card--active {
+  border-width: 2px;
+  box-shadow: 0 0 0 2px rgba(232, 93, 117, 0.2), 0 8px 24px rgba(0, 0, 0, 0.4);
+  transform: scale(1.02);
+}
+
+.ir-image-card__viewport {
+  aspect-ratio: 1;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ir-image-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ir-image-card__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--ir-text-dim);
+  font-size: 12px;
+}
+
+.ir-image-card__placeholder-icon {
+  font-size: 32px;
+}
+
+.ir-image-card__slice {
+  font-family: var(--ir-font-mono);
+  font-size: 11px;
+}
+
+.ir-image-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+}
+
+.ir-image-card__organ-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.ir-image-card__type {
+  font-size: 12px;
+  color: var(--ir-text-dim);
+}
+
+.ir-image-card__linked {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--ir-text-dim);
+}
+
+/* ── Report Text Toggle ───────────────────────────────────────────────────── */
+.ir-report-toggle {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.ir-report-toggle button {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: var(--ir-font-body);
+  border: 1px solid var(--ir-border);
+  background: transparent;
+  color: var(--ir-text-dim);
+  border-radius: var(--ir-radius);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ir-report-toggle__btn--active {
+  background: var(--ir-surface-raised) !important;
+  color: var(--ir-text-bright) !important;
+  border-color: var(--ir-border-active) !important;
+}
+
+.ir-report-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ir-text);
+  white-space: pre-line;
+  background: var(--ir-surface);
+  padding: 16px;
+  border-radius: var(--ir-radius-lg);
+  border: 1px solid var(--ir-border);
+}
+
+/* ── No images ────────────────────────────────────────────────────────────── */
+.ir-no-images {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ir-text-dim);
+}
+
+.ir-no-images__sub {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* ── 3D Placeholder ───────────────────────────────────────────────────────── */
+.ir-3d-placeholder {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--ir-surface);
+  border: 1px dashed var(--ir-border);
+  border-radius: var(--ir-radius-lg);
+}
+
+.ir-3d-placeholder__icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.ir-3d-placeholder h3 {
+  font-family: var(--ir-font-display);
+  color: var(--ir-text-bright);
+  margin: 0 0 8px 0;
+}
+
+.ir-3d-placeholder p {
+  font-size: 13px;
+  color: var(--ir-text-dim);
+  max-width: 360px;
+  margin: 0 auto 16px;
+}
+
+.ir-3d-placeholder__link {
+  color: var(--ir-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ── Imaging Details ──────────────────────────────────────────────────────── */
+.ir-imaging-details {
+  margin-top: 24px;
+  background: var(--ir-surface);
+  border: 1px solid var(--ir-border);
+  border-radius: var(--ir-radius-lg);
+  padding: 16px;
+}
+
+.ir-imaging-details h3 {
+  font-family: var(--ir-font-display);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ir-text-dim);
+  margin: 0 0 10px 0;
+}
+
+.ir-imaging-details__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 12.5px;
+  border-bottom: 1px solid var(--ir-border);
+}
+
+.ir-imaging-details__row:last-child {
+  border-bottom: none;
+}
+
+.ir-imaging-details__label {
+  color: var(--ir-text-dim);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .ir-body {
+    grid-template-columns: 1fr;
+  }
+  .ir-col--report {
+    border-right: none;
+    border-bottom: 1px solid var(--ir-border);
+    max-height: none;
+  }
+  .ir-col--images {
+    max-height: none;
+  }
+  .ir-col__sticky {
+    position: static;
+  }
+  .ir-header {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+  }
+}

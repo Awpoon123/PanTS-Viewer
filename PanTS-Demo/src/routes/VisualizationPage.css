@@ -1,0 +1,96 @@
+.VisualizationPage {
+  display: grid;
+  grid-template-columns: 20vw 80vw;
+  grid-template-rows: 100vh;
+  background-color: black;
+  color: white;
+}
+
+.sidebar {
+  background-color: black;
+  color: white;
+  grid-column: 1;
+  grid-row: 1;
+  text-align: center;
+  max-width: 20vw;
+}
+
+.dropdown {
+  color: black;
+  background-color: #0f0824;
+  margin: 2vh;
+  border-radius: 15px;
+  position: relative;
+}
+
+.dropdown-header {
+  text-align: left;
+  color: #dcd9e7;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.dropdown-header:hover {
+  background-color: grey;
+}
+
+.visualization-container {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: 50vw 50vw;
+  grid-template-rows: 50vh 50vh;
+  gap: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.canvas {
+  height: 100%;
+}
+
+.report-container button {
+  margin: 5px;
+  background-color: #222;       /* 深灰色背景 */
+  color: white;                 /* 白色文字 */
+  border: 1px solid white;      /* 白色边框 */
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.report-container button:hover {
+  background-color: #333;       /* hover 时稍微亮一点的灰色 */
+}
+
+
+.checkbox-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  background-color: #030a1e;
+  border-top: 1px solid #444;
+  z-index: 1000;
+  overflow-y: auto;
+  overflow-x: hidden;         /* ✅ 防止横向滚动 */
+  width: 100vw;               /* ✅ 明确控制在视口范围 */
+  box-sizing: border-box;     /* ✅ 避免 padding 导致溢出 */
+}
+
+.back-button {
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #444;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.back-button:hover {
+  background-color: #333;
+}
+
