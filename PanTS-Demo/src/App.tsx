@@ -9,7 +9,7 @@ import VisualizationPage from "./routes/VisualizationPage";
 import InteractiveReportPage from "./routes/InteractiveReportPage";
 import AIAnalysisPage from "./routes/AIAnalysisPage";
 
-const BASENAME = import.meta.env.VITE_BASENAME;
+const BASENAME = import.meta.env.VITE_BASENAME || '/PanTS-Viewer';
 
 function App() {
 	return (
